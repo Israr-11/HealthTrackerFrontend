@@ -1,6 +1,6 @@
 # Health Tracker Frontend
 
-This repository contains the frontend application for the **Health Tracker** project, developed using Vue 3. It contains the functionalities of setting the health goal, logging the actual goal achieved, and track the performance.
+This repository contains the frontend application for the **Health Tracker** project, developed using Vue 3. It contains the functionalities of setting various kinds of health goals, logging the actual goal achieved, and track the performance.
 
 ## Features
 
