@@ -1,14 +1,20 @@
-# health-tracker-frontend
+# Health Tracker Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+This repository contains the frontend application for the **Health Tracker** project, developed using Vue 3. It contains the functionalities of setting the health goal, logging the actual goal achieved, and track the performance.
 
-## Recommended IDE Setup
+## Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+The application includes the following key functionalities:
 
-## Customize configuration
+- **Activity Tracking**: Monitor workouts, exercises, and daily physical activity to evaluate progress.
+- **Health Goal Setting**: Set personalized health goals and track progress over time.
+- **Diet Tracking**: Log meals, track daily nutrition intake, and set dietary goals to encourage healthier eating habits.
+- **Sleep Tracking**: Record sleep duration and quality while setting goals for better sleep hygiene.
+- **Screen Time Tracking**: Track daily screen time usage, set limits, and promote healthier digital habits.
+- **Water Intake Tracking**: Set daily water intake goals, log consumption, and evaluate hydration performance.
+- **Mental Health Monitoring**: Define mental health goals and track progress to improve emotional well-being.
+- **Walking Goals**: Set walking targets (steps), log actual steps, and measure performance.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
 
 ## Project Setup
 
@@ -27,3 +33,4 @@ npm run dev
 ```sh
 npm run build
 ```
+
