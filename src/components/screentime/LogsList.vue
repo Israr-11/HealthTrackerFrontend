@@ -8,22 +8,22 @@
       <thead>
       <tr>
         <th>#</th>
-        <th>Health ID</th>
-        <th>Status</th>
-        <th>Achieved Value</th>
-        <th>Target Reached</th>
-        <th>Remarks</th>
+        <th>Screen Time ID</th>
+        <th>Actual Screen Hours</th>
+        <th>Target Met</th>
+        <th>Extra Hours</th>
+        <th>Recommendations</th>
         <th>Entry Time</th>
       </tr>
       </thead>
       <tbody>
       <tr v-for="(log, index) in logs" :key="log.id">
         <td>{{ index + 1 }}</td>
-        <td>{{ log.healthGoalId }}</td>
-        <td>{{ log.status}}</td>
-        <td>{{ log.achievedValue }}</td>
-        <td>{{ log.targetReached ? 'Yes' : 'No' }}</td>
-        <td>{{log.remarks}}</td>
+        <td>{{ log.screenTimeGoalId }}</td>
+        <td>{{ log.actualScreenHours}}</td>
+        <td>{{ log.targetMet? 'Yes': 'No' }}</td>
+        <td>{{log.extraHours}}</td>
+        <td>{{log.recommendations}}</td>
         <td>{{ new Date(log.entryTime).toLocaleString() }}</td>
       </tr>
       </tbody>
@@ -34,8 +34,8 @@
 
 <script>
 import {
-  getHealthLogsByUserId,
-} from "../../services/health";
+  getScreenTimeLogsByUserId,
+} from "../../services/screenTime.js";
 
 export default {
   name: "LogList",
@@ -54,7 +54,7 @@ export default {
       const user = JSON.parse(localStorage.getItem("user"));
       const userId = user.id;
       try {
-        const response = await getHealthLogsByUserId(userId);
+        const response = await getScreenTimeLogsByUserId(userId);
         this.logs = response.data;
       } catch (error) {
         console.error("Error fetching logs:", error);

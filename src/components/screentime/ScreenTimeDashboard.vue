@@ -10,18 +10,23 @@
       <PerformanceChart />
     </section>
 
+    <section>
+      <LogList />
+    </section>
+
   </div>
 </template>
 
 <script>
 import GoalsList from "./GoalsList.vue";
-//import LogList from "./LogList.vue";
+import LogList from "./LogsList.vue";
 import PerformanceChart from "./PerformanceChart.vue";
 export default {
   name: "ScreenTimeDashboard",
   components: {
     PerformanceChart,
     GoalsList,
+    LogList
   },
 };
 </script>
