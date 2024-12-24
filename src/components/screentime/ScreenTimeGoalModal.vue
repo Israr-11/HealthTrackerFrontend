@@ -3,37 +3,26 @@
     <div class="modal-dialog animate__animated animate__fadeInDown">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Create Log</h5>
+          <h5 class="modal-title">Screen Time Goal</h5>
           <button type="button" class="btn-close" @click="$emit('close')" aria-label="Close"></button>
         </div>
-        <form @submit.prevent="createLog">
+        <form @submit.prevent="createGoal">
           <div class="modal-body">
             <div class="mb-3">
-              <label for="exerciseType" class="form-label">Exercise Type</label>
-              <input
-                  type="text"
-                  id="exerciseType"
-                  v-model="exerciseType"
-                  class="form-control"
-                  placeholder="e.g., Running, Yoga"
-                  required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="duration" class="form-label">Duration (minutes)</label>
+              <label for="targetScreenHours" class="form-label">Target Screen Hours</label>
               <input
                   type="number"
-                  id="duration"
-                  v-model="duration"
+                  id="targetScreenHours"
+                  v-model="targetScreenHours"
                   class="form-control"
-                  placeholder="Enter duration in minutes"
+                  placeholder="e.g., 1, 2,3---"
                   required
               />
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="$emit('close')">Close</button>
-            <button type="submit" class="btn btn-primary">Add Schedule</button>
+            <button type="submit" class="btn btn-primary">Add Goal</button>
           </div>
         </form>
       </div>
@@ -42,36 +31,34 @@
 </template>
 
 <script>
-import { createExerciseLogs} from "@/services/exercise.js";
+import { createScreenTimeGoal} from "@/services/screenTime.js";
 import showToast from "@/utils/ToastManager.js";
 
 export default {
-  name: "ScheduleModal",
+  name: "ScreenTimeGoalModal",
   data() {
     return {
-      exerciseType: "",
-      duration: null,
+      targetScreenHours: "",
     };
   },
   methods: {
-    async createLog() {
+    async createGoal() {
       const user = JSON.parse(localStorage.getItem("user"));
       const userId = user.id;
-      const newLog = {
+      const newGoal = {
         userId,
-        exerciseType: this.exerciseType,
-        duration: this.duration,
+        targetScreenHours: this.targetScreenHours,
         entryTime: new Date().toISOString(),
       };
       try {
-        const response = await createExerciseLogs(newLog);
-        showToast("New log added successfully.");
-        this.$emit("logAdded", response.data);
+        const response = await createScreenTimeGoal(newGoal);
+        showToast("New goal added successfully.");
+        this.$emit("goalAdded", response.data);
         window.location.reload();
         this.$emit("close");
       } catch (error) {
-        console.error("Error creating schedule:", error);
-        showToast("Failed to create schedule. Please try again.", "error");
+        console.error("Error creating gaol:", error);
+        showToast("Failed to create goal. Please try again.", "error");
       }
     },
   },
@@ -129,5 +116,10 @@ export default {
 
 .animate__fadeInDown {
   animation-duration: 0.5s;
+}
+.btn-primary {
+  background-color: #5c636a;
+  border-color: #5c636a;
+  transition: all 0.3s ease;
 }
 </style>
