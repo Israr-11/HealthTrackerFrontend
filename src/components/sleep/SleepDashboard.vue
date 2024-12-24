@@ -1,30 +1,30 @@
 <template>
   <div>
     <div class="welcome-section py-1">
-      <h4 class="display-4 fw-bold">Health Management</h4>
+      <h4 class="display-4 fw-bold">Sleep Management</h4>
     </div>
-    <section>
-      <GoalsList />
-    </section>
-    <section>
-      <PerformanceChart />
-    </section>
 <section>
-  <LogList/>
+  <GoalsList/>
 </section>
+    <section>
+      <LogList/>
+      </section>
+    <section>
+      <PerformanceChart/>
+    </section>
   </div>
 </template>
 
 <script>
-import GoalsList from "@/components/health/GoalsList.vue";
+import GoalsList from "./GoalsList.vue";
 import LogList from "./LogList.vue";
 import PerformanceChart from "./PerformanceChart.vue";
 export default {
-  name: "HealthDashboard",
+  name: "SleepDashboard",
   components: {
     PerformanceChart,
     LogList,
-    GoalsList,
+   GoalsList,
   },
 };
 </script>

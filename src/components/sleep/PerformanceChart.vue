@@ -1,7 +1,7 @@
 <template>
   <div class="mt-5 position-relative">
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h3 class="mb-0">Performance</h3>
+      <h3 class="mb-0">Sleep Performance</h3>
     </div>
 
     <canvas ref="performanceChart" style="max-height: 400px;"></canvas>
@@ -14,7 +14,7 @@
 
 <script>
 import { Chart as ChartJS, Title, Tooltip, BarController, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
-import { getHealthLogsByUserId } from '../../services/health';
+import { getSleepLogByUserId } from '../../services/sleep';
 ChartJS.register(Title, Tooltip, Legend, BarElement, BarController, CategoryScale, LinearScale);
 
 export default {
@@ -35,7 +35,7 @@ export default {
       const userId = user.id;
 
       try {
-        const response = await getHealthLogsByUserId(userId);
+        const response = await getSleepLogByUserId(userId);
         console.log(response.data);
 
         if (Array.isArray(response.data)) {
@@ -58,20 +58,38 @@ export default {
         return;
       }
 
-      const achievedData = this.performanceData.filter(item => item.status === 'completed');
-      const missedData = this.performanceData.filter(item => item.status === 'not_completed');
+      const goodSleep = this.performanceData.filter(item => item.actualSleepQuality === 'good');
+      const excellentSleep = this.performanceData.filter(item => item.actualSleepQuality === 'excellent');
+      const nightSleep = this.performanceData.filter(item => item.actualSleepTiming === 'night');
+      const daySleep = this.performanceData.filter(item => item.actualSleepTiming === 'day');
+      const sleepGreaterThanSixHours = this.performanceData.filter(item => item.actualSleepHours >= 6);
 
-      const achievedCount = achievedData.length || 0;
-      const missedCount = missedData.length || 0;
+      const achievedGoodSleep = goodSleep.length;
+      const achievedExcellentSleep = excellentSleep.length;
+      const achievedNightSleep = nightSleep.length;
+      const achievedDaySleep = daySleep.length;
+      const achievedSleepGreaterThanSixHours = sleepGreaterThanSixHours.length;
 
       const data = {
-        labels: ['Completed (Number of times target reached)', 'Missed (Number of times target not reached)'],
+        labels: ['Good Sleep (Number of times)', 'Excellent Sleep (Number of times)', 'Night Sleep (Number of times)', 'Day Sleep (Number of times)', 'Sleep Greater than 6 hours (Number of times)'],
         datasets: [
           {
-            label: 'Performance',
-            data: [achievedCount, missedCount],
-            backgroundColor: ['#28a745', '#dc3545'],
-            borderColor: ['#28a745', '#dc3545'],
+            label: '',
+            data: [achievedGoodSleep, achievedExcellentSleep,achievedNightSleep, achievedDaySleep, achievedSleepGreaterThanSixHours],
+            backgroundColor: [
+              '#4CAF50',
+              '#FFC107',
+              '#2196F3',
+              '#FF5722',
+              '#9C27B0'
+              ],
+            borderColor: [
+              '#388E3C',
+              '#FFA000',
+              '#1976D2',
+              '#E64A19',
+              '#7B1FA2'
+            ],
             borderWidth: 1,
           },
         ],
