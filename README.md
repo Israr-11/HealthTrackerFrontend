@@ -22,7 +22,7 @@ The application is organized into several key directories: `components`, `pages`
 ## Folder Structure
 
 
-## Folder Descriptions
+### Folder Descriptions
 
 - **`components`**: Contains reusable components and feature-specific components.
   - **`common`**: Shared components like `Footer.vue` and `Navbar.vue`.
@@ -39,7 +39,7 @@ The application is organized into several key directories: `components`, `pages`
 
 - **`utils`**: Utility components and functions, such as `Toaster.vue` and `ToastManager.js`.
 
-## Configuration and Entry Files
+### Configuration and Entry Files
 
 - **`App.vue`**: The root application component.
 - **`main.js`**: Entry point for the application.
