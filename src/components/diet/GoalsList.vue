@@ -138,7 +138,6 @@ export default {
     closeLogModal() {
       this.showCompletionModal = false;
       this.selectedGoal = null;
-      caloriesConsumed: null;
     },
 
     //ADDING LOG FOR SPECIFIC GOAL

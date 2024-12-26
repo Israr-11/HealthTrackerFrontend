@@ -13,7 +13,6 @@ export const createSleepGoal = async (data) => {
         const response = await apiClient.post(`/api/sleep-goal`, data);
         return response;
     } catch (error) {
-        console.error("Error creating sleep goals:", error);
         throw error;
     }
 };
@@ -23,18 +22,15 @@ export const getSleepGoalByUserId = async (userId) => {
         const response = await apiClient.get(`/api/sleep-goal/${userId}`);
         return response;
     } catch (error) {
-        console.error("Error fetching sleep goals:", error);
         throw error;
     }
 };
-
 
 export const createSleepGoalAndLog = async (data) => {
     try {
         const response = await apiClient.post(`/api/sleep-goal-and-stats`, data);
         return response;
     } catch (error) {
-        console.error("Error creating sleep log:", error);
         throw error;
     }
 };
@@ -44,7 +40,6 @@ export const getSleepLogByUserId = async (userId) => {
         const response = await apiClient.get(`/api/sleep-goal-and-stats/${userId}`);
         return response;
     } catch (error) {
-        console.error("Error fetching sleep logs:", error);
         throw error;
     }
 };

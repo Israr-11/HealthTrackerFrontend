@@ -137,7 +137,6 @@ export default {
     closeLogModal() {
       this.showCompletionModal = false;
       this.selectedGoal = null;
-      actualSteps: null;
     },
 
     //ADDING LOG FOR SPECIFIC GOAL

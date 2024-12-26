@@ -102,7 +102,6 @@ import showToast from "@/utils/ToastManager.js";
 import {
   createMentalHealthGoalsAndLogs,
   getMentalHealthGoalsByUserId,
-  getMentalHealthLogsByUserId
 } from "@/services/mentalhealth.js";
 
 export default {

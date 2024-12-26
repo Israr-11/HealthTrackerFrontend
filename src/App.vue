@@ -25,7 +25,7 @@ export default {
     },
   },
   mounted() {
-    // Check if the user is already logged in
+    // CHECK IF USER IS ALREADY LOGIN
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       this.isAuthenticated = true;

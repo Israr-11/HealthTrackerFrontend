@@ -13,7 +13,6 @@ export const createWaterGoal = async (data) => {
         const response = await apiClient.post(`/api/water-goal`, data);
         return response;
     } catch (error) {
-        console.error("Error creating water goals:", error);
         throw error;
     }
 };
@@ -23,7 +22,6 @@ export const getWaterGoalsByUserId = async (userId) => {
         const response = await apiClient.get(`/api/water-goal/${userId}`);
         return response;
     } catch (error) {
-        console.error("Error fetching water goals:", error);
         throw error;
     }
 };
@@ -33,7 +31,6 @@ export const updateWaterGoalByWaterGoalId = async (waterGoalId, goalData) => {
         const response = await apiClient.patch(`/api/water-goal/${waterGoalId}`, goalData);
         return response;
     } catch (error) {
-        console.error("Error updating water goals:", error);
         throw error;
     }
 };
@@ -43,7 +40,6 @@ export const createWaterGoalAndLog = async (data) => {
         const response = await apiClient.post(`/api/water-goal-and-log`, data);
         return response;
     } catch (error) {
-        console.error("Error creating water log:", error);
         throw error;
     }
 };
@@ -53,7 +49,6 @@ export const getWaterLogByUserId = async (userId) => {
         const response = await apiClient.get(`/api/water-goal-and-log/${userId}`);
         return response;
     } catch (error) {
-        console.error("Error fetching water logs:", error);
         throw error;
     }
 };

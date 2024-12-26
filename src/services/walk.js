@@ -13,7 +13,6 @@ export const createWalkGoal = async (data) => {
         const response = await apiClient.post(`/api/walk-goal`, data);
         return response;
     } catch (error) {
-        console.error("Error creating walk goals:", error);
         throw error;
     }
 };
@@ -23,7 +22,6 @@ export const getWalkGoalsByUserId = async (userId) => {
         const response = await apiClient.get(`/api/walk-goal/${userId}`);
         return response;
     } catch (error) {
-        console.error("Error fetching walk goals:", error);
         throw error;
     }
 };
@@ -33,7 +31,6 @@ export const createWalkGoalAndLog = async (data) => {
         const response = await apiClient.post(`/api/walk-goal-and-log`, data);
         return response;
     } catch (error) {
-        console.error("Error creating walk log:", error);
         throw error;
     }
 };
@@ -43,7 +40,6 @@ export const getWalkLogByUserId = async (userId) => {
         const response = await apiClient.get(`/api/walk-goal-and-log/${userId}`);
         return response;
     } catch (error) {
-        console.error("Error fetching walk logs:", error);
         throw error;
     }
 };

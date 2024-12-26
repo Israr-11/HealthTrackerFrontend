@@ -7,6 +7,7 @@
           <button type="button" class="btn-close" @click="$emit('close')" aria-label="Close"></button>
         </div>
         <form @submit.prevent="createSchedule">
+
           <div class="modal-body">
             <div class="mb-3">
               <label for="exerciseType" class="form-label">Exercise Type</label>
@@ -79,6 +80,7 @@ export default {
 </script>
 
 <style scoped>
+
 .modal-overlay {
   position: fixed;
   top: 0;

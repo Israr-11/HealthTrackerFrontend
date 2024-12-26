@@ -13,7 +13,6 @@ export const createScreenTimeGoal = async (data) => {
         const response = await apiClient.post(`/api/screen-time-goal`, data);
         return response;
     } catch (error) {
-        console.error("Error creating screen time goals:", error);
         throw error;
     }
 };
@@ -23,7 +22,6 @@ export const getScreenTimeGoalsByUserId = async (userId) => {
         const response = await apiClient.get(`/api/screen-time-goal/${userId}`);
         return response;
     } catch (error) {
-        console.error("Error fetching screen time goals:", error);
         throw error;
     }
 };
@@ -34,7 +32,6 @@ export const createScreenTimeGoalsAndLogs = async (data) => {
         const response = await apiClient.post(`/api/screen-time-goal-and-log`, data);
         return response;
     } catch (error) {
-        console.error("Error creating screen time log:", error);
         throw error;
     }
 };
@@ -44,7 +41,6 @@ export const getScreenTimeLogsByUserId = async (userId) => {
         const response = await apiClient.get(`/api/screen-time-goal-and-log/${userId}`);
         return response;
     } catch (error) {
-        console.error("Error fetching screen time logs:", error);
         throw error;
     }
 };

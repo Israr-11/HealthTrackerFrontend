@@ -13,7 +13,6 @@ export const createDietGoal = async (data) => {
         const response = await apiClient.post(`/api/diet-goal`, data);
         return response;
     } catch (error) {
-        console.error("Error creating diet goals:", error);
         throw error;
     }
 };
@@ -23,20 +22,15 @@ export const getDietGoalsByUserId = async (userId) => {
         const response = await apiClient.get(`/api/diet-goal/${userId}`);
         return response;
     } catch (error) {
-        console.error("Error fetching diet goals:", error);
         throw error;
     }
 };
-
-
-
 
 export const createDietGoalAndLog = async (data) => {
     try {
         const response = await apiClient.post(`/api/diet-goal-and-log`, data);
         return response;
     } catch (error) {
-        console.error("Error creating diet log:", error);
         throw error;
     }
 };
@@ -46,7 +40,6 @@ export const getDietLogByUserId = async (userId) => {
         const response = await apiClient.get(`/api/diet-goal-and-log/${userId}`);
         return response;
     } catch (error) {
-        console.error("Error fetching diet logs:", error);
         throw error;
     }
 };

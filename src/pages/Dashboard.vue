@@ -26,6 +26,7 @@ export default {
 </script>
 
 <style scoped>
+
 .custom-container {
   max-width: 92%;
   margin-left: auto;

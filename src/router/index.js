@@ -69,7 +69,7 @@ const router = createRouter({
     routes,
 });
 
-// Route guard to check authentication status
+// ROUTE GUARD TO CHECK AUTHENTICATION'S STATUS
 router.beforeEach((to, from, next) => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (to.meta.requiresAuth && !user) {

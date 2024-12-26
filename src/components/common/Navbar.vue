@@ -49,13 +49,6 @@ export default {
     toggleMenu() {
       this.isOpen = !this.isOpen;
     },
-    scrollToPlans(e) {
-      e.preventDefault();
-      const plansSection = document.getElementById("plans");
-      if (plansSection) {
-        plansSection.scrollIntoView({ behavior: "smooth" });
-      }
-    },
     logout() {
       localStorage.removeItem("user");
       this.$router.push("/");

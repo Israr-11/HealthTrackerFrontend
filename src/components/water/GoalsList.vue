@@ -154,7 +154,6 @@ export default {
     closeLogModal() {
       this.showCompletionModal = false;
       this.selectedGoal = null;
-      actualWaterIntake: null;
     },
 
     //ADDING LOG FOR SPECIFIC GOAL

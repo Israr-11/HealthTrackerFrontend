@@ -13,7 +13,6 @@ export const getUserByEmail = async (email) => {
         const response = await apiClient.get(`/api/users/${email}`);
         return response;
     } catch (error) {
-        console.error("Error fetching user by email:", error);
         throw error;
     }
 };
@@ -23,7 +22,6 @@ export const createUser = async (data) => {
         const response = await apiClient.post(`/api/users`, data);
         return response;
     } catch (error) {
-        console.error("Error creating user:", error);
         throw error;
     }
 };

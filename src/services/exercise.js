@@ -13,7 +13,6 @@ export const createExerciseSchedule = async (data) => {
         const response = await apiClient.post(`/api/exercise-schedule`, data);
         return response;
     } catch (error) {
-        console.error("Error creating exercise schedule:", error);
         throw error;
     }
 };
@@ -23,7 +22,6 @@ export const getExerciseSchedulesByUserId = async (userId) => {
         const response = await apiClient.get(`/api/exercise-schedule/${userId}`);
         return response;
     } catch (error) {
-        console.error("Error fetching exercise schedules:", error);
         throw error;
     }
 };
@@ -33,7 +31,6 @@ export const deleteExerciseSchedulesByScheduleId = async (scheduleId) => {
         const response = await apiClient.delete(`/api/exercise-schedule/${scheduleId}`);
         return response;
     } catch (error) {
-        console.error("Error deleting exercise schedule:", error);
         throw error;
     }
 };
@@ -43,7 +40,6 @@ export const createExerciseLogs = async (data) => {
         const response = await apiClient.post(`/api/exercise-log`, data);
         return response;
     } catch (error) {
-        console.error("Error creating exercise log:", error);
         throw error;
     }
 };
@@ -53,7 +49,6 @@ export const getExerciseLogsByUserId = async (userId) => {
         const response = await apiClient.get(`/api/exercise-log/${userId}`);
         return response;
     } catch (error) {
-        console.error("Error fetching exercise logs:", error);
         throw error;
     }
 };
@@ -63,7 +58,6 @@ export const deleteExerciseLogsByScheduleId = async (logId) => {
         const response = await apiClient.delete(`/api/exercise-log/${logId}`);
         return response;
     } catch (error) {
-        console.error("Error deleting exercise log:", error);
         throw error;
     }
 };
@@ -73,7 +67,6 @@ export const createExercisePerformanceByUserId = async (userId) => {
         const response = await apiClient.get(`/api/exercise-performance/${userId}`);
         return response;
     } catch (error) {
-        console.error("Error fetching exercise performance:", error);
         throw error;
     }
 };
@@ -83,7 +76,6 @@ export const getExercisePerformanceByUserPerId = async (userPerId) => {
         const response = await apiClient.get(`/api/${userPerId}/exercise-performance/`);
         return response;
     } catch (error) {
-        console.error("Error fetching exercise performance by user ID:", error);
         throw error;
     }
 };

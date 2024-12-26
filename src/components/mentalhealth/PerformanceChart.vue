@@ -126,9 +126,4 @@ canvas {
   width: 100%;
   height: auto;
 }
-.btn-primary {
-  background-color: #5c636a;
-  border-color: #5c636a;
-  transition: all 0.3s ease;
-}
 </style>

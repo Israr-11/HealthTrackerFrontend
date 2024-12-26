@@ -35,7 +35,6 @@
             </div>
           </div>
 
-
           <div class="modal-body">
             <div class="mb-3">
               <label for="targetCalories" class="form-label">Target Calories</label>

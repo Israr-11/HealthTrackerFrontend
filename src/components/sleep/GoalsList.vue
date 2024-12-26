@@ -71,7 +71,7 @@
               <div class="mb-3">
                 <label for="actualSleepHours" class="form-label">Actual Sleep Hours</label>
                 <input
-                    type="options"
+                    type="number"
                     id="actualSleepHours"
                     v-model="actualSleepHours"
                     class="form-control"
@@ -176,9 +176,6 @@ export default {
     closeLogModal() {
       this.showCompletionModal = false;
       this.selectedGoal = null;
-      actualSleepHours: null;
-      actualSleepQuality: null;
-      actualSleepTiming: null;
     },
 
     //ADDING LOG FOR SPECIFIC GOAL
@@ -234,10 +231,6 @@ export default {
   border-color: #5c636a;
   transition: all 0.3s ease;
 }
-.me-2 {
-  margin-right: 0.5rem;
-}
-
 .modal-overlay {
   position: fixed;
   top: 0;
