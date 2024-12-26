@@ -21,41 +21,7 @@ The application is organized into several key directories: `components`, `pages`
 
 ## Folder Structure
 
-Conversation with Gemini
-
-Write down this folder structure for me
-
-
-
-
-Google Workspace
-
-2.0 Flash Experimental. Might not work as expected.
-├── components
-│   ├── common
-│   │   ├── Footer.vue
-│   │   └── Navbar.vue
-│   ├── dashboard
-│   │   └── FeatureCard.vue
-│   └── diet
-│       ├── DietDashboard.vue
-│       ├── GoalsList.vue
-│       ├── LogList.vue
-│       └── PerformanceChart.vue
-├── exercise
-├── health
-├── mentalhealth
-├── screentime
-├── sleep
-└── walk
-└── pages
-    ├── Dashboard.vue
-    ├── Diet.vue
-    ├── Exercise.vue
-    ├── Health.vue
-    ├── HomePage.vue
-    ├── MentalHealth.vue
-    └── ScreenTime.
+├── components │ ├── common # Reusable components used across the app │ │ ├── Footer.vue │ │ └── Navbar.vue │ ├── dashboard # Components for the main dashboard │ │ └── FeatureCard.vue │ └── diet # Components specific to the diet feature │ ├── DietDashboard.vue │ ├── GoalsList.vue │ ├── LogList.vue │ └── PerformanceChart.vue ├── exercise # Placeholder for exercise-related files ├── health # Placeholder for health-related files ├── mentalhealth # Placeholder for mental health-related files ├── screentime # Placeholder for screen time-related files ├── sleep # Placeholder for sleep-related files └── walk # Placeholder for walk-related files ├── pages # Main pages of the application │ ├── Dashboard.vue │ ├── Diet.vue │ ├── Exercise.vue │ ├── Health.vue │ ├── HomePage.vue │ ├── MentalHealth.vue │ └── ScreenTime.vue ├── router # Application routes │ └── index.js ├── services # API call services │ ├── diet.js │ ├── exercise.js │ ├── health.js │ ├── mentalhealth.js │ ├── screenTime.js │ ├── sleep.js │ ├── user.js │ ├── walk.js │ └── water.js ├── utils # Utility components and functions │ ├── Toaster.vue │ └── ToastManager.js ├── App.vue # Main application component ├── main.js # Entry point of the application ├── .gitignore # Git ignore file ├── index.html # Main HTML file ├── jsconfig.json # JavaScript configuration file ├── package.json # Project dependencies ├── package-lock.json # Lock file for dependencies ├── README.md # This README file └── vite.config.js # Vite configuration file
 
 
 
