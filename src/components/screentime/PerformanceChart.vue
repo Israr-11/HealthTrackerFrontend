@@ -14,7 +14,7 @@
 
 <script>
 import { Chart as ChartJS, Title, Tooltip, BarController, BarElement, Legend, CategoryScale, LinearScale } from 'chart.js';
-import { getScreenTimeLogsByUserId } from '../../services/screentime';
+import { getScreenTimeLogsByUserId } from '../../services/screenTime.js';
 ChartJS.register(Title, Tooltip, Legend, BarElement, BarController, CategoryScale, LinearScale);
 
 export default {

@@ -15,46 +15,28 @@
                   id="targetSleepHours"
                   v-model="targetSleepHours"
                   class="form-control"
-                  placeholder="e.g., 1, 2,3---"
+                  placeholder="e.g., 8"
                   required
               />
             </div>
-          </div>
-
-          <div class="modal-body">
             <div class="mb-3">
               <label for="targetSleepQuality" class="form-label">Target Sleep Quality</label>
-              <select
-                  id="targetSleepQuality"
-                  v-model="targetSleepQuality"
-                  class="form-control"
-                  required
-              >
-                <option value="" disabled class="text-black-50">Select Quality</option>
-                <option value="excellent">excellent</option>
-                <option value="good">good</option>
-                <option value="poor">poor</option>
+              <select id="targetSleepQuality" v-model="targetSleepQuality" class="form-control" required>
+                <option value="" disabled>Select Quality</option>
+                <option value="excellent">Excellent</option>
+                <option value="good">Good</option>
+                <option value="poor">Poor</option>
               </select>
             </div>
-          </div>
-
-
-          <div class="modal-body">
             <div class="mb-3">
               <label for="targetSleepTiming" class="form-label">Target Sleep Timing</label>
-              <select
-                  id="targetSleepTiming"
-                  v-model="targetSleepTiming"
-                  class="form-control"
-                  required
-              >
-                <option value="" disabled class="text-black-50">Select Timing</option>
-                <option value="day">day</option>
-                <option value="night">night</option>
+              <select id="targetSleepTiming" v-model="targetSleepTiming" class="form-control" required>
+                <option value="" disabled>Select Timing</option>
+                <option value="day">Day</option>
+                <option value="night">Night</option>
               </select>
             </div>
           </div>
-
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="$emit('close')">Close</button>
             <button type="submit" class="btn btn-primary">Add Goal</button>

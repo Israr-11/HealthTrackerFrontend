@@ -1,9 +1,10 @@
 {
   "name": "health-tracker-frontend",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
+    "test": "mocha --timeout 30000 test/endtoend/**/*.js",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
@@ -13,12 +14,16 @@
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "chart.js": "^4.4.7",
+    "chromedriver": "^131.0.4",
     "echarts": "^5.5.1",
     "vue": "^3.5.12",
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",
+    "chai": "^5.1.2",
+    "mocha": "^11.0.1",
+    "selenium-webdriver": "^4.27.0",
     "vite": "^5.4.8"
   }
 }
