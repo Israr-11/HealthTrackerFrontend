@@ -21,6 +21,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Install ChromeDriver
+        run: npm install chromedriver
+
       - name: Build Application
         run: npm run build
 
@@ -46,11 +49,11 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Download Build Files
-        uses: actions/download-artifact@v4
-        with:
-          name: Build Files
-          path: dist
+      - name: Install ChromeDriver
+        run: npm install chromedriver
+
+      - name: Set up Google Chrome
+        uses: browser-actions/setup-chrome@v2
 
       - name: Run Selenium Tests
         run: npm run test
