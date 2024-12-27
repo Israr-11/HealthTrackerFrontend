@@ -1,5 +1,5 @@
 import { Builder, By, Key, until } from 'selenium-webdriver';
-import { Options } from 'selenium-webdriver/chrome';
+import chrome from 'selenium-webdriver/chrome.js';
 
 describe('Exercise Feature Test', function() {
     this.timeout(30000);
@@ -7,39 +7,60 @@ describe('Exercise Feature Test', function() {
     let vars;
 
     beforeEach(async function() {
-        // Set up Chrome options to run in headless mode for CI/CD
-        const options = new Options();
-        options.addArguments('headless'); // Runs Chrome in headless mode
-        options.addArguments('no-sandbox'); // For environments like CI/CD
-        options.addArguments('disable-dev-shm-usage'); // To handle resource limits
+        // SETUP CHROME OPTIONS
+        const options = new chrome.Options();
+        options.addArguments('--headless');
+        options.addArguments('--no-sandbox');
+        options.addArguments('--disable-dev-shm-usage');
+        options.addArguments('--disable-gpu');
+        options.addArguments('--window-size=1920,1080');
 
-        driver = await new Builder().forBrowser('chrome').setChromeOptions(options).build();
+        // INITIALIZE WEB DRIVER
+        driver = await new Builder()
+            .forBrowser('chrome')
+            .setChromeOptions(options)
+            .build();
         vars = {};
     });
 
     afterEach(async function() {
+        // CLEANUP WEB DRIVER
         if (driver) {
             await driver.quit();
         }
     });
 
     it('Exercise Feature Test', async function() {
+        // NAVIGATE TO APPLICATION
         await driver.get("https://health-tracker-application.netlify.app/");
-        await driver.manage().window().setRect({ width: 1552, height: 840 });
 
-        // Log in
+        // WAIT FOR PAGE LOAD
+        await driver.wait(until.elementLocated(By.id("fullName")), 10000);
+
+        // FILL LOGIN FORM
         await driver.findElement(By.id("fullName")).sendKeys("Israr");
         await driver.findElement(By.id("email")).sendKeys("israr@gmail.com");
-        await driver.findElement(By.css(".btn")).click();
 
-        // Wait for navigation to the dashboard
+        // SUBMIT LOGIN FORM
+        const submitButton = await driver.findElement(By.css(".btn"));
+        await driver.wait(until.elementIsEnabled(submitButton), 5000);
+        await submitButton.click();
+
+        // VERIFY DASHBOARD NAVIGATION
         await driver.wait(until.urlContains("https://health-tracker-application.netlify.app/dashboard"), 10000);
 
-        // Navigate to exercise page
-        const goToSleepTrackingButton = await driver.findElement(By.css(".feature-card .btn.btn-custom"));
-        await goToSleepTrackingButton.click();
+        // NAVIGATE TO EXERCISE FEATURE
+        const exerciseButton = await driver.wait(
+            until.elementLocated(By.css(".feature-card .btn.btn-custom")),
+            10000
+        );
+        await driver.wait(until.elementIsEnabled(exerciseButton), 5000);
+        await exerciseButton.click();
 
-        // Wait for navigation to the exercise page
-        await driver.wait(until.urlContains("https://health-tracker-application.netlify.app/exercise"), 10000);
+        // VERIFY EXERCISE PAGE NAVIGATION
+        await driver.wait(
+            until.urlContains("https://health-tracker-application.netlify.app/exercise"),
+            10000
+        );
     });
 });
