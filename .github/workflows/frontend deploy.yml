@@ -49,17 +49,19 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: stable
+
       - name: Install ChromeDriver
         run: npm install chromedriver
 
-      - name: Install Google Chrome
-        run: |
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo dpkg -i google-chrome-stable_current_amd64.deb
-          sudo apt --fix-broken install -y
-
       - name: Run Selenium Tests
         run: npm run test
+        env:
+          CHROME_BINARY_PATH: /usr/bin/google-chrome
+          NODE_ENV: test
 
   deploy:
     name: Deploy to Netlify
