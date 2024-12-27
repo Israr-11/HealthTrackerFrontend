@@ -1,4 +1,4 @@
-name: CI/CD Pipeline for Health Tracker Application's frontend
+name: CI/CD Pipeline for Health Tracker Application's Frontend
 
 on:
   push:
@@ -6,31 +6,73 @@ on:
       - main
 
 jobs:
-  test-build-deploy:
+  build:
+    name: Build Vue.js Application
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Set Up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: Run Selenium End-to-End Tests
-        run: npm run test:e2e
-
-      - name: Build the Vue.js project
+      - name: Build Application
         run: npm run build
 
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v1.1.0
+      - name: Archive Build Files
+        uses: actions/upload-artifact@v4
         with:
-          publish-dir: dist
-          production-deploy: true
+          name: Build Files
+          path: dist
+
+  test:
+    name: Run End-to-End Tests
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Download Build Files
+        uses: actions/download-artifact@v4
+        with:
+          name: Build Files
+          path: dist
+
+      - name: Run Selenium Tests
+        run: npm run test
+
+  deploy:
+    name: Deploy to Netlify
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Deploy to Netlify
+        run: netlify deploy --prod --dir=dist
+        env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
