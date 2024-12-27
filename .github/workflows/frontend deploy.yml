@@ -52,8 +52,11 @@ jobs:
       - name: Install ChromeDriver
         run: npm install chromedriver
 
-      - name: Set up Google Chrome
-        uses: browser-actions/setup-chrome@v2
+      - name: Install Google Chrome
+        run: |
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
+          sudo apt --fix-broken install -y
 
       - name: Run Selenium Tests
         run: npm run test
