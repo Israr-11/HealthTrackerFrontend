@@ -1,7 +1,7 @@
-import { Builder, By, Key, until } from 'selenium-webdriver';
+import { Builder, By, until } from 'selenium-webdriver';
 import chrome from 'selenium-webdriver/chrome.js';
 
-describe('Login Feature Test', function() {
+describe('Login Functionality Test', function() {
     this.timeout(30000);
     let driver;
     let vars;
@@ -27,7 +27,7 @@ describe('Login Feature Test', function() {
         }
     });
 
-    it('Login Feature Test', async function() {
+    it('Login Functionality Test', async function() {
         await driver.get("https://health-tracker-application.netlify.app/");
 
         await driver.wait(until.elementLocated(By.id("fullName")), 10000);
