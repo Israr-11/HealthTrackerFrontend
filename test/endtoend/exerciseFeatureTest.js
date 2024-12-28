@@ -1,17 +1,19 @@
-import { Builder, By, Key, until } from 'selenium-webdriver';
+import { Builder, By, until } from 'selenium-webdriver';
 import chrome from 'selenium-webdriver/chrome.js';
 
-describe('Exercise Feature Test', function() {
+describe('Diet Feature Test', function() {
     this.timeout(30000)
     let driver
     let vars
 
-    // CHROME OPTIONS FOR HEADLESS EXECUTION
     beforeEach(async function() {
         const options = new chrome.Options();
         options.addArguments('--headless');
         options.addArguments('--no-sandbox');
         options.addArguments('--disable-dev-shm-usage');
+        options.addArguments('--disable-gpu');
+        options.addArguments('--window-size=1920,1080');
+        options.addArguments('--start-maximized');
 
         driver = await new Builder()
             .forBrowser('chrome')
@@ -24,48 +26,50 @@ describe('Exercise Feature Test', function() {
         await driver.quit();
     })
 
-    it('Exercise Feature Test', async function() {
+    it('Diet Feature Test', async function() {
         await driver.get("https://health-tracker-application.netlify.app/")
-        await driver.manage().window().setRect({ width: 1552, height: 840 })
+        await driver.executeScript("window.scrollTo(0, 0)");
 
-        // LOGIN
+        await driver.wait(until.elementLocated(By.id("fullName")), 10000);
         await driver.findElement(By.id("fullName")).sendKeys("Israr")
         await driver.findElement(By.id("email")).sendKeys("israr@gmail.com")
-        await driver.findElement(By.css(".btn")).click()
 
-        // NAVIGATION TO EXERCISE PAGE
-        const exerciseButton = await driver.wait(
-            until.elementLocated(By.css(".feature-card .btn.btn-custom")),
+        const loginButton = await driver.findElement(By.css(".btn"))
+        await driver.executeScript("arguments[0].scrollIntoView(true);", loginButton);
+        await driver.wait(until.elementIsVisible(loginButton), 10000);
+        await loginButton.click()
+
+        const dietButton = await driver.wait(
+            until.elementLocated(By.linkText("Go to Diet Tracking")),
             10000
         );
-        await exerciseButton.click();
+        await driver.executeScript("arguments[0].scrollIntoView(true);", dietButton);
+        await driver.wait(until.elementIsVisible(dietButton), 10000);
+        await dietButton.click();
 
-        // CREATION OF NEW SCHEDULE
-        await driver.findElement(By.css(".mb-1 > .btn")).click()
-        await driver.wait(until.elementLocated(By.id("exerciseType")), 10000)
-
-        // FORM FILLING
-        await driver.findElement(By.id("exerciseType")).sendKeys("Running")
-        await driver.findElement(By.id("duration")).sendKeys("30")
-
-        // FORM SUBMISSION
-        await driver.findElement(By.css(".modal-footer > .btn-primary")).click()
-
-        // VERIFY AND DELETE
-        await driver.wait(until.elementLocated(By.css("tbody tr")), 5000)
-
-        const deleteButton = await driver.wait(
-            until.elementLocated(By.css(".btn-danger")),
+        const createButton = await driver.wait(
+            until.elementLocated(By.css(".btn:nth-child(2)")),
             10000
         );
-        await driver.wait(until.elementIsVisible(deleteButton), 5000);
-        await driver.wait(until.elementIsEnabled(deleteButton), 5000);
+        await driver.executeScript("arguments[0].scrollIntoView(true);", createButton);
+        await driver.wait(until.elementIsVisible(createButton), 10000);
+        await createButton.click();
 
-        await driver.executeScript("arguments[0].click();", deleteButton);
+        await driver.wait(until.elementLocated(By.id("dietGoalType")), 10000);
+        const dietSelect = await driver.findElement(By.id("dietGoalType"));
+        await driver.executeScript("arguments[0].scrollIntoView(true);", dietSelect);
+        await dietSelect.click();
+        await dietSelect.findElement(By.css("option[value='vegetarian']")).click();
 
-        await driver.wait(
-            until.stalenessOf(await driver.findElement(By.css("tbody tr"))),
-            10000
-        );
+        const caloriesInput = await driver.findElement(By.id("targetCalories"));
+        await driver.executeScript("arguments[0].scrollIntoView(true);", caloriesInput);
+        await caloriesInput.sendKeys("2000");
+
+        const submitButton = await driver.findElement(By.css(".modal-footer > .btn-primary"));
+        await driver.executeScript("arguments[0].scrollIntoView(true);", submitButton);
+        await driver.wait(until.elementIsVisible(submitButton), 10000);
+        await submitButton.click();
+
+        await driver.sleep(2000);
     })
 })
