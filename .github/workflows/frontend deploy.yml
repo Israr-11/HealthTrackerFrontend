@@ -76,6 +76,12 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Application
+        run: npm run build
+
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
 
@@ -84,3 +90,4 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
