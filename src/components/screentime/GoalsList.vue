@@ -40,7 +40,7 @@
     <ScreenTimeGoalModal
         v-if="showModal"
         @close="showModal = false"
-        @scheduleAdded="addGoal"
+        @goalAdded="addGoal"
     />
 
     <!--MODAL FOR SCREEN TIME LOGS!-->
@@ -96,8 +96,9 @@
 <script>
 
 import ScreenTimeGoalModal from "./ScreenTimeGoalModal.vue";
-import showToast from "@/utils/ToastManager.js";
+import showLoadingToast from '@/utils/LoadingToast.js';
 import {createScreenTimeGoalsAndLogs, getScreenTimeGoalsByUserId} from "@/services/screenTime.js";
+import showToast from "@/utils/ToastManager.js";
 
 export default {
   name: "GoalsList",
@@ -125,7 +126,11 @@ export default {
 
       } catch (error) {
         console.error("Error fetching goals:", error);
+        showToast("Error fetching goals. Please try again.");
       }
+    },
+    addGoal(newGoal) {
+      this.goals.push(newGoal);
     },
     openLogModal(goal) {
       this.selectedGoal = goal;
@@ -152,18 +157,16 @@ export default {
       try {
         await createScreenTimeGoalsAndLogs(logData);
         this.selectedGoal.completed = true;
-        showToast("Screen Time log added successfully.");
-        window.location.reload()
+        showLoadingToast()
         this.closeLogModal();
       } catch (error) {
         console.error("Error adding the log:", error);
+        showToast("Error adding the log. Please try again.");
       }
     },
   },
 };
 </script>
-
-
 <style scoped>
 .d-flex {
   display: flex;

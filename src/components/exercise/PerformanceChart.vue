@@ -21,6 +21,8 @@
 <script>
 import { Chart as ChartJS, Title, Tooltip, BarController, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import { getExercisePerformanceByUserPerId, createExercisePerformanceByUserId } from '../../services/exercise';
+import ExerciseChartsLoading from "@/utils/ExerciseChartsLoading.js";
+import showToast from "@/utils/ToastManager.js";
 ChartJS.register(Title, Tooltip, Legend, BarElement, BarController, CategoryScale, LinearScale);
 
 export default {
@@ -42,12 +44,13 @@ export default {
 
       try {
         const response = await getExercisePerformanceByUserPerId(userId);
-        console.log(response.data);
 
         if (Array.isArray(response.data)) {
           this.performanceData = response.data;
         } else {
           console.error('API response is not an array:', response.data);
+          showToast("Error fetching response. Please try again.");
+
           this.performanceData = [];
         }
 
@@ -55,6 +58,7 @@ export default {
         this.renderChart();
       } catch (error) {
         console.error('Error fetching performance data:', error);
+        showToast("Error fetching performance data. Please try again.");
         this.loading = false;
       }
     },
@@ -67,11 +71,12 @@ export default {
         this.loading = true;
 
         await createExercisePerformanceByUserId(userId);
-        window.location.reload()
+        ExerciseChartsLoading()
 
         await this.fetchPerformanceData();
       } catch (error) {
         console.error('Error refreshing performance data:', error);
+        showToast("Error refreshing performance data. Please try again.");
         this.loading = false;
       }
     },
@@ -79,6 +84,7 @@ export default {
     renderChart() {
       if (this.performanceData.length === 0) {
         console.error('No performance data available');
+        showToast("No performance data available. Please try again.");
         return;
       }
 

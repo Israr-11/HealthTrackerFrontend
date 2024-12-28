@@ -75,6 +75,7 @@ import {
   getExerciseLogsByUserId,
 } from "../../services/exercise";
 import showToast from "@/utils/ToastManager.js";
+import showLoadingToast from "@/utils/LoadingToast.js";
 
 export default {
   name: "ScheduleList",
@@ -113,6 +114,7 @@ export default {
         });
       } catch (error) {
         console.error("Error fetching schedules:", error);
+        showToast("Error fetching schedules. Please try again.");
       }
     },
     async deleteSchedule(scheduleId) {
@@ -122,6 +124,7 @@ export default {
         showToast("Schedule deleted successfully.");
       } catch (error) {
         console.error("Error deleting schedule:", error);
+        showToast("Error deleting schedule. Please try again.");
       }
     },
     addSchedule(newSchedule) {
@@ -146,13 +149,13 @@ export default {
         await createExerciseLogs(logData);
 
         this.selectedSchedule.completed = true;
-        window.location.reload()
-
-        showToast("Schedule marked as completed.");
+        showLoadingToast()
         this.showCompletionModal = false;
         this.selectedSchedule = null;
       } catch (error) {
         console.error("Error marking schedule as completed:", error);
+        showToast("Error marking schedule as completed. Please try again.");
+
       }
     },
   },

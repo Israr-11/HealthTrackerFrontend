@@ -63,7 +63,7 @@ export default {
         this.$emit("close");
       } catch (error) {
         console.error("Error updating goal:", error);
-        showToast("Failed to update goal. Please try again.", "error");
+        showToast("Failed to update goal. Please try again.");
       }
     },
   },

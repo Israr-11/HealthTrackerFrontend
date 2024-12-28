@@ -42,7 +42,7 @@
     <HealthGoalModal
         v-if="showModal"
         @close="showModal = false"
-        @scheduleAdded="addGoal"
+        @goalAdded="addGoal"
     />
 
     <!--MODAL FOR HEALTH LOG!-->
@@ -96,9 +96,9 @@
 
 
 <script>
-
 import HealthGoalModal from "./HealthGoalModal.vue";
 import showToast from "@/utils/ToastManager.js";
+import showLoadingToast from "@/utils/LoadingToast.js";
 import { createHealthGoalsAndLogs, getHealthGoalsByUserId } from "@/services/health.js";
 
 export default {
@@ -127,7 +127,11 @@ export default {
 
       } catch (error) {
         console.error("Error fetching goals:", error);
+        showToast("Error fetching goals. Please try again later")
       }
+    },
+    addGoal(newGoal) {
+      this.goals.push(newGoal);
     },
     openLogModal(goal) {
       this.selectedGoal = goal;
@@ -154,16 +158,16 @@ export default {
       try {
         await createHealthGoalsAndLogs(logData);
         this.selectedGoal.completed = true;
-        showToast("Health log added successfully.");
+        showLoadingToast()
         this.closeLogModal();
       } catch (error) {
         console.error("Error marking goal as completed:", error);
+        showToast("Error marking goal as completed. Please try again later")
       }
     },
   },
 };
 </script>
-
 
 <style scoped>
 .d-flex {

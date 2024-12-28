@@ -15,6 +15,7 @@
 <script>
 import { Chart as ChartJS, Title, Tooltip, BarController, BarElement, Legend, CategoryScale, LinearScale } from 'chart.js';
 import { getScreenTimeLogsByUserId } from '../../services/screenTime.js';
+import showToast from "@/utils/ToastManager.js";
 ChartJS.register(Title, Tooltip, Legend, BarElement, BarController, CategoryScale, LinearScale);
 
 export default {
@@ -36,12 +37,12 @@ export default {
 
       try {
         const response = await getScreenTimeLogsByUserId(userId);
-        console.log(response.data);
 
         if (Array.isArray(response.data)) {
           this.performanceData = response.data;
         } else {
           console.error('API response is not an array:', response.data);
+          showToast("An error occurred. Please try again.");
           this.performanceData = [];
         }
 
@@ -49,12 +50,14 @@ export default {
         this.renderChart();
       } catch (error) {
         console.error('Error fetching performance data:', error);
+        showToast("Error fetching performance data. Please try again.");
         this.loading = false;
       }
     },
     renderChart() {
       if (this.performanceData.length === 0) {
         console.error('No performance data available');
+        showToast("No performance data available. Please try again.");
         return;
       }
 

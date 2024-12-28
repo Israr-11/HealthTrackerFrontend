@@ -5,8 +5,6 @@
       <button class="btn btn-primary" @click="showModal = true">Create Goal</button>
     </div>
 
-    <!--FETCHING SLEEP GOALS!-->
-
     <table class="table table-striped">
       <thead>
       <tr>
@@ -39,15 +37,11 @@
       </tbody>
     </table>
 
-    <!--MODAL FOR SLEEP GOAL!-->
-
     <SleepGoalModal
         v-if="showModal"
         @close="showModal = false"
-        @scheduleAdded="addGoal"
+        @goalAdded="addGoal"
     />
-
-    <!--MODAL FOR SLEEP LOG!-->
 
     <div
         v-if="showCompletionModal"
@@ -134,14 +128,14 @@
 
 
 <script>
-
 import SleepGoalModal from "./SleepGoalModal.vue";
-import showToast from "@/utils/ToastManager.js";
+import showLoadingToast from '@/utils/LoadingToast.js';
 import { createSleepGoalAndLog, getSleepGoalByUserId } from "@/services/sleep.js";
+import showToast from "@/utils/ToastManager.js";
 
 export default {
   name: "GoalsList",
-  components: {SleepGoalModal },
+  components: { SleepGoalModal },
   data() {
     return {
       goals: [],
@@ -157,17 +151,19 @@ export default {
     await this.fetchGoals();
   },
   methods: {
-    //FETCHING THE GOALS FOR SLEEP FEATURE
     async fetchGoals() {
       const user = JSON.parse(localStorage.getItem("user"));
       const userId = user.id;
       try {
         const scheduleResponse = await getSleepGoalByUserId(userId);
         this.goals = scheduleResponse.data;
-
       } catch (error) {
         console.error("Error fetching goals:", error);
+        showToast("Error fetching goals. Please try again.");
       }
+    },
+    addGoal(newGoal) {
+      this.goals.push(newGoal);
     },
     openLogModal(goal) {
       this.selectedGoal = goal;
@@ -177,8 +173,6 @@ export default {
       this.showCompletionModal = false;
       this.selectedGoal = null;
     },
-
-    //ADDING LOG FOR SPECIFIC GOAL
     async AddLog() {
       const user = JSON.parse(localStorage.getItem("user"));
       const userId = user.id;
@@ -190,17 +184,16 @@ export default {
         actualSleepHours: this.actualSleepHours,
         actualSleepQuality: this.actualSleepQuality,
         actualSleepTiming: this.actualSleepTiming,
-
       };
 
       try {
         await createSleepGoalAndLog(logData);
         this.selectedGoal.completed = true;
-        showToast("Sleep log added successfully.");
-        window.location.reload()
+        showLoadingToast()
         this.closeLogModal();
       } catch (error) {
-        console.error("Error marking goal as completed:", error);
+        console.error("Error creating log:", error);
+        showToast("Error creating log. Please try again.");
       }
     },
   },

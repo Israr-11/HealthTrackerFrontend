@@ -68,7 +68,6 @@ export default {
         const response = await createExerciseSchedule(newSchedule);
         showToast("New schedule added successfully.");
         this.$emit("scheduleAdded", response.data);
-        window.location.reload();
         this.$emit("close");
       } catch (error) {
         console.error("Error creating schedule:", error);

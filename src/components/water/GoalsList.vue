@@ -47,7 +47,7 @@
     <WaterGoalModal
         v-if="showModal"
         @close="showModal = false"
-        @scheduleAdded="addGoal"
+        @goalAdded="addGoal"
     />
 
     <!--MODAL FOR WATER GOAL UPDATION!-->
@@ -115,8 +115,9 @@
 
 import WaterGoalModal from "./WaterGoalModal.vue";
 import WaterGoalUpdateModal from "./WaterGoalUpdateModal.vue";
-import showToast from "@/utils/ToastManager.js";
 import { createWaterGoalAndLog, getWaterGoalsByUserId } from "@/services/water.js";
+import showLoadingToast from "@/utils/LoadingToast.js";
+import showToast from "@/utils/ToastManager.js";
 
 export default {
   name: "GoalsList",
@@ -145,7 +146,11 @@ export default {
 
       } catch (error) {
         console.error("Error fetching goals:", error);
+        showToast("Error fetching goals. Please try again later");
       }
+    },
+    addGoal(newGoal) {
+      this.goals.push(newGoal);
     },
     openLogModal(goal) {
       this.selectedGoal = goal;
@@ -171,11 +176,11 @@ export default {
       try {
         await createWaterGoalAndLog(logData);
         this.selectedGoal.completed = true;
-        showToast("Water log added successfully.");
-        window.location.reload()
+        showLoadingToast()
         this.closeLogModal();
       } catch (error) {
         console.error("Error marking goal as completed:", error);
+        showToast("Error marking goal as completed. Please try again later");
       }
     },
 

@@ -72,11 +72,10 @@ export default {
         const response = await createWalkGoal(newGoal);
         showToast("New goal added successfully.");
         this.$emit("goalAdded", response.data);
-        window.location.reload();
         this.$emit("close");
       } catch (error) {
         console.error("Error creating gaol:", error);
-        showToast("Failed to create goal. Please try again.", "error");
+        showToast("Failed to create goal. Please try again.");
       }
     },
   },

@@ -42,7 +42,7 @@
     <DietGoalModal
         v-if="showModal"
         @close="showModal = false"
-        @scheduleAdded="addGoal"
+        @goalAdded="addGoal"
     />
 
     <!--MODAL FOR DIET LOG!-->
@@ -100,8 +100,9 @@
 <script>
 
 import DietGoalModal from "./DietGoalModal.vue";
-import showToast from "@/utils/ToastManager.js";
+import showLoadingToast from "@/utils/LoadingToast.js";
 import { createDietGoalAndLog, getDietGoalsByUserId } from "@/services/diet.js";
+import showToast from "@/utils/ToastManager.js";
 
 export default {
   name: "GoalsList",
@@ -129,7 +130,11 @@ export default {
 
       } catch (error) {
         console.error("Error fetching goals:", error);
+        showToast("Error fetching goals")
       }
+    },
+    addGoal(newGoal) {
+      this.goals.push(newGoal);
     },
     openLogModal(goal) {
       this.selectedGoal = goal;
@@ -155,11 +160,11 @@ export default {
       try {
         await createDietGoalAndLog(logData);
         this.selectedGoal.completed = true;
-        showToast("Diet log added successfully.");
-        window.location.reload()
+        showLoadingToast()
         this.closeLogModal();
       } catch (error) {
-        console.error("Error marking goal as completed:", error);
+        console.error("Error creating goal:", error);
+        showToast("Error creating goal. Please try again!")
       }
     },
   },

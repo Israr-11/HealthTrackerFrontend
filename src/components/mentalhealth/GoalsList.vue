@@ -40,7 +40,7 @@
     <MentalHealthGoalModal
         v-if="showModal"
         @close="showModal = false"
-        @scheduleAdded="addGoal"
+        @goalAdded="addGoal"
     />
 
     <!--MODAL FOR MENTAL HEALTH LOG!-->
@@ -98,11 +98,13 @@
 <script>
 
 import MentalHealthGoalModal from "./MentalHealthGoalModal.vue";
-import showToast from "@/utils/ToastManager.js";
+import LoadingToast from "@/utils/LoadingToast.js";
 import {
   createMentalHealthGoalsAndLogs,
   getMentalHealthGoalsByUserId,
 } from "@/services/mentalhealth.js";
+import showLoadingToast from "@/utils/LoadingToast.js";
+import showToast from "@/utils/ToastManager.js";
 
 export default {
   name: "GoalsList",
@@ -130,7 +132,11 @@ export default {
 
       } catch (error) {
         console.error("Error fetching goals:", error);
+        showToast("Error fetching goals. Please try again later.");
       }
+    },
+    addGoal(newGoal) {
+      this.goals.push(newGoal);
     },
     openLogModal(goal) {
       this.selectedGoal = goal;
@@ -157,11 +163,11 @@ export default {
       try {
         await createMentalHealthGoalsAndLogs(logData);
         this.selectedGoal.completed = true;
-        showToast("Mental health log added successfully.");
-        window.location.reload()
+        showLoadingToast();
         this.closeLogModal();
       } catch (error) {
-        console.error("Error marking goal as completed:", error);
+        console.error("Error creating log:", error);
+        showToast("Error creating log. Please try again later.");
       }
     },
   },

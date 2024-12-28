@@ -42,6 +42,7 @@
 import {
   getSleepLogByUserId,
 } from "../../services/sleep";
+import showToast from "@/utils/ToastManager.js";
 
 export default {
   name: "LogList",
@@ -64,6 +65,7 @@ export default {
         this.logs = response.data;
       } catch (error) {
         console.error("Error fetching logs:", error);
+        showToast("Error fetching logs. Please try again.");
       }
     },
   },

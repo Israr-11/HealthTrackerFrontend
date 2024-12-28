@@ -67,25 +67,22 @@ export default {
       const newGoal = {
         userId,
         targetSleepHours: this.targetSleepHours,
-        targetSleepQuality:this.targetSleepQuality,
+        targetSleepQuality: this.targetSleepQuality,
         targetSleepTiming: this.targetSleepTiming,
-        entryTime: new Date().toISOString(),
       };
       try {
         const response = await createSleepGoal(newGoal);
         showToast("New goal added successfully.");
         this.$emit("goalAdded", response.data);
-        window.location.reload();
         this.$emit("close");
       } catch (error) {
-        console.error("Error creating gaol:", error);
-        showToast("Failed to create goal. Please try again.", "error");
+        console.error("Error creating goal:", error);
+        showToast("Failed to create goal. Please try again.");
       }
     },
   },
 };
 </script>
-
 <style scoped>
 .modal-overlay {
   position: fixed;
